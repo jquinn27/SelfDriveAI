@@ -14,7 +14,7 @@ const traffic=[
 
 animate();
 
-function animate(){
+function animate(time){
     for(let i=0;i<traffic.length;i++){
         traffic[i].update(road.borders,[]);
     }
@@ -34,5 +34,15 @@ function animate(){
 
     carCtx.restore();
 
+    networkCtx.lineDashOffset=-time/50;
+    Visualizer.drawNetwork(networkCtx,car.brain);
     requestAnimationFrame(animate);
+}
+
+function getRGBA(value){
+    const alpha=Math.abs(value);
+    const R=value<0?0:255;
+    const G=R;
+    const B=value>0?0:255;
+    return "rgba("+R+","+G+","+B+","+alpha+")";
 }
